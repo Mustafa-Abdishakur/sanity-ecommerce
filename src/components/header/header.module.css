@@ -1,0 +1,82 @@
+:root{
+    --color-1: #f02d35;
+    --color-2:#a09b99;
+}
+nav{
+    display:flex;
+    justify-content: space-between;
+    padding:5px 20px;
+    align-items: center;
+    padding-top:20px;
+}
+.rightBtnsContainer {
+    display:flex;
+    align-items: center;
+    margin-right:20px;
+}
+.shoppingCartContainer img {
+    width:25px;
+}
+.shoppingAmountContainer {
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    font-size: 12px;
+    text-align: center;
+    background-color: var(--color-1);
+    color:#fff;
+    align-self: flex-end;
+    position:relative;
+    right:10px;
+    top:7px;
+}
+.shoppingAmountContainer span{
+    text-align: center;
+}
+.rightBtnsContainer button {
+    background-color:var(--color-1);
+    color:#fff;
+    font-size:16px;
+    padding:3px 14px;
+    height:40px;
+    border-radius:20px;
+    font-weight:bold;
+    border:1px solid grey;
+    transition:all 0.5s;
+}
+.rightBtnsContainer button:hover {
+    cursor:pointer;
+    transform: scale(1.1);
+}
+.shoppingCartContainer{
+    display:flex;
+    align-items: center;
+    margin:10px;
+
+}
+.shoppingCartContainer:hover{
+    cursor:pointer
+}
+
+.companyName h3{
+    color:#a09b99;
+    font-weight: none;
+    font-size:22px;
+    font-weight: normal;
+    padding:3px 10px;
+    border-radius:10px;
+    transition: all 0.5s;  
+}
+.companyName h3:hover{
+    cursor:pointer;
+    background-color:var(--color-1);
+    color:#fff;
+}
+.bannerContainer {
+    width:85%;
+    margin:auto;
+}
+.bannerContainer img {
+    width:100%;
+    height:auto;
+}

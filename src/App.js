@@ -1,25 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from "react";
+import { client } from './client';
+import Header from './components/header/header';
+import Products from './components/products/products';
 
-function App() {
+const App = () => {
+  let components;
+  const [products, setProducts] = useState(null);
+  const [banners, setBanners] = useState(null);
+
+  useEffect(() => {
+    client
+      .fetch(`*[_type == "products"]`)
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch(console.error);
+    client
+      .fetch(`*[_type == "banners"]`)
+      .then((data) => {
+        setBanners(data);
+      })
+      .catch(console.error);
+  }, []);
+  if (products !== null && banners !== null) {
+    components = (
+      <div>
+        <Header banners={banners} />
+        <Products products={products} banners={banners} />
+      </div>
+    )
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {components}
     </div>
   );
 }
-
 export default App;
