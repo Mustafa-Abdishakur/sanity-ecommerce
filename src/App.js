@@ -1,13 +1,15 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { client } from './client';
-import Header from './components/header/header';
-import Products from './components/products/products';
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './components/homePage/homePage';
+import Product from './components/productPage/product';
 const App = () => {
+  //other faeture: stock avaliablity, banner carousel
   let components;
   const [products, setProducts] = useState(null);
   const [banners, setBanners] = useState(null);
+  const [product, setProduct] = useState({});
 
   useEffect(() => {
     client
@@ -25,16 +27,19 @@ const App = () => {
   }, []);
   if (products !== null && banners !== null) {
     components = (
-      <div>
-        <Header banners={banners} />
-        <Products products={products} banners={banners} />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage products={products} banners={banners} setProduct={setProduct} />} />
+          <Route path="/product" element={<Product product={product} setProduct={setProduct} products={products} />} />
+        </Routes>
+      </BrowserRouter>
     )
   }
   return (
     <div className="App">
       {components}
     </div>
+
   );
 }
 export default App;

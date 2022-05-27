@@ -1,0 +1,11 @@
+.mainBannersContainer {
+    width:85%;
+    margin:auto;
+}
+.bannerContainer {
+    width:100%;
+}
+.bannerContainer img {
+    width:100%;
+    height:auto;
+}

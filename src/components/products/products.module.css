@@ -40,7 +40,7 @@ main {
     display:flex;
     justify-content: center;
     align-items:center;
-    background-color: var(--color-2);
+    background-color: #f1f1f1;
     border-radius: 10px;
 }
 .productImgContainer img {
@@ -61,26 +61,4 @@ main {
     transform: scale(1.1);
     cursor:pointer;
 }
-.bannerContainer {
-    width:100%;
-    margin:auto;
-    margin-top:20px;
-}
-.bannerContainer img {
-    width:100%;
-    height:100%;
-}
-.footerContainer {
-    text-align:center;
-    color:var(--color-3);
-    font-weight: bold;
-    margin-top:30px;
-    margin-bottom:70px;
-}
-.footerImagesContainer {
-    margin-top:10px;
-}
-.footerImagesContainer img {
-    width:20px;
-    margin:5px;
-}
+

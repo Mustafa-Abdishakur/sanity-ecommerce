@@ -1,0 +1,14 @@
+.footerContainer {
+    text-align:center;
+    color:var(--color-3);
+    font-weight: bold;
+    margin-top:30px;
+    margin-bottom:70px;
+}
+.footerImagesContainer {
+    margin-top:10px;
+}
+.footerImagesContainer img {
+    width:20px;
+    margin:5px;
+}

@@ -42,7 +42,7 @@ nav{
     border-radius:20px;
     font-weight:bold;
     border:1px solid grey;
-    transition:all 0.5s;
+    transition:all 0.2s;
 }
 .rightBtnsContainer button:hover {
     cursor:pointer;
@@ -52,10 +52,11 @@ nav{
     display:flex;
     align-items: center;
     margin:10px;
-
+    transition:all 0.5s;
 }
 .shoppingCartContainer:hover{
-    cursor:pointer
+    cursor:pointer;
+    transform: scale(1.1);
 }
 
 .companyName h3{
@@ -65,18 +66,10 @@ nav{
     font-weight: normal;
     padding:3px 10px;
     border-radius:10px;
-    transition: all 0.5s;  
+    transition: all 0.5s; 
 }
 .companyName h3:hover{
     cursor:pointer;
     background-color:var(--color-1);
     color:#fff;
-}
-.bannerContainer {
-    width:85%;
-    margin:auto;
-}
-.bannerContainer img {
-    width:100%;
-    height:auto;
 }
