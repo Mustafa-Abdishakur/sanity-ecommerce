@@ -4,7 +4,7 @@ import { urlFor } from '../../../client';
 
 const FirstBanner = (props) => {
     const [bannerNumber, setBannerNumber] = useState(0);
-    const [hightlightColor, setHighlightColor] = useState(1);
+    const [hightlightColor, setHighlightColor] = useState(0);
 
     const bannerUrl = urlFor(props.banners[bannerNumber].picture.asset._ref);
     //Banner carousel
@@ -16,7 +16,7 @@ const FirstBanner = (props) => {
         }
     }, 5000);
     
-    //banner change
+    //banner dots
     useEffect(() => {
         switch (bannerNumber) {
             case 0:
@@ -24,7 +24,9 @@ const FirstBanner = (props) => {
                 break;
             case 1:
                 setHighlightColor(1);
+                break;
             default:
+                setHighlightColor(0);
                 break;
         }
     }, [bannerNumber])

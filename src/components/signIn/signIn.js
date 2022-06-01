@@ -1,13 +1,11 @@
-import { React, useState, useEffect, useContext } from 'react';
+import { React, useState, useEffect } from 'react';
 import classes from './signIn.module.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { uiConfig, auth } from '../../firebase';
 import { signInAnonymously  } from "firebase/auth";
-import { AppContext } from '../../context';
 
 const SignIn = (props) => {
     const [widget, setWidget] = useState(null);
-    const setUser = useContext(AppContext).setUser;
 
     useEffect(() => {
         if (uiConfig !== null) {
@@ -24,7 +22,6 @@ const SignIn = (props) => {
           };
         })
         .catch((error) => {
-          const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorMessage);
           window.location = '/';

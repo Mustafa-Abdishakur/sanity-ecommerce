@@ -11,9 +11,10 @@ import rightArrow from '../../img/right-arrow.png';
 
 const Product = (props) => {
     const counter = useRef(null);
-    const [imgUrl, setImgUrl] =useState(props.product.pictures[0].asset._ref);
+    const [imgUrl, setImgUrl] = useState(props.product.pictures[0].asset._ref);
+    const [quantity, setQuantity] = useState(1);
     const scrollBtnHandler = (val) => {
-        if(val === '+'){
+        if (val === '+') {
             counter.current.scrollLeft += 400;
         } else {
             counter.current.scrollLeft -= 400;
@@ -25,6 +26,25 @@ const Product = (props) => {
         setImgUrl(product.pictures[0].asset._ref);
         props.setProduct(product);
     }
+    const quantityHandler = (val) => {
+        if(props.product.stock !== 0) {
+            if (val === "+") {
+                if(quantity >= props.product.stock) {
+                    return;
+                } else {
+                    setQuantity(quantity + 1);
+                }
+            } else if (val === "-") {
+                if (quantity === 1) {
+                    return;
+                } else {
+                    setQuantity(quantity - 1);
+    
+                }
+    
+            }
+        }
+    }
     return (
         <div className={classes.productPageContainer}>
             <Navigation />
@@ -35,8 +55,8 @@ const Product = (props) => {
                     </div>
                     <div className={classes.subImagesContainer}>
                         {
-                            props.product.pictures.map(image => 
-                            <img key={uniqid()} src={urlFor(image.asset._ref)} alt='product' onMouseEnter={() => setImgUrl(image.asset._ref)} />
+                            props.product.pictures.map(image =>
+                                <img key={uniqid()} src={urlFor(image.asset._ref)} alt='product' onMouseEnter={() => setImgUrl(image.asset._ref)} />
                             )
                         }
                     </div>
@@ -57,12 +77,15 @@ const Product = (props) => {
                         <p className={classes.productPrice}>
                             {props.product.price} Dhs
                         </p>
+                        <p className={classes.stockPrice}>
+                            Avaliable stock: {props.product.stock === 0 ? 'Unavailable' : props.product.stock}
+                        </p>
                         <div className={classes.quantityContainer}>
                             <span>Quantity:</span>
                             <div className={classes.operatorContainer}>
-                                <button>+</button>
-                                <span>1</span>
-                                <button>-</button>
+                                <button onClick={() => quantityHandler('+')}>+</button>
+                                <span>{quantity}</span>
+                                <button onClick={() => quantityHandler('-')}>-</button>
                             </div>
                         </div>
                     </div>
@@ -93,7 +116,7 @@ const Product = (props) => {
                             </div>
                         ))
                     }
-                   
+
                 </div>
             </div>
             <Footer />

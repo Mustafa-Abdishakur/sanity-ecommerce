@@ -198,7 +198,7 @@
     cursor: pointer;
 }
 
-.product p {
+.productPrice {
     font-weight: bold;
     color: var(--color-3);
 }
