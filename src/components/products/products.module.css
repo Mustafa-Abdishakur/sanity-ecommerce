@@ -21,6 +21,7 @@ main {
     color:var(--color-3);
     font-size:35px;
     margin:5px;
+    text-align: center;
 }
 .productsTitleContainer p {
     font-size:13px;

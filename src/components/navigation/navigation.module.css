@@ -121,3 +121,12 @@ nav{
       cursor:pointer;
   }
 
+  @media(max-width: 400px) {
+    .profileContainer, .dropdownContent {
+        font-size: 13px;
+    }
+
+    .companyName h3{
+        font-size:19px;
+    }
+}
