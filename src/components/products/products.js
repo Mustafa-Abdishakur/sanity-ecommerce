@@ -4,7 +4,7 @@ import { urlFor } from '../../client';
 import uniqid from 'uniqid';
 import { Link } from 'react-router-dom';
 import Footer from '../footer/footer';
-import SaleBanner from '../banners/banner-2/banner';
+import SaleBanner from '../banners/saleBanner/banner';
 
 const products = (props) => {
     return (
@@ -36,7 +36,7 @@ const products = (props) => {
                     ))
                 }
             </div>
-            <SaleBanner banners={props.banners} />
+            <SaleBanner saleBanners={props.saleBanners} />
             <Footer />
         </main>
     )

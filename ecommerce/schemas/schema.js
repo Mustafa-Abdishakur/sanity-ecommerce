@@ -6,7 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 // We import object and document schemas
 import products from './products';
 import banners from './banners';
-
+import saleBanners from './saleBanners';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -16,7 +16,8 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
    products,
-   banners
+   banners,
+   saleBanners
     
   ]),
 })

@@ -73,3 +73,51 @@ nav{
     background-color:var(--color-1);
     color:#fff;
 }
+.profileContainer {
+    display:flex;
+    align-items: center;
+    padding:5px 8px;
+    justify-content: space-between;
+    margin-right:10px;
+    border:2px solid var(--color-2);
+    border-radius:20px;
+    transition:all 0.3s;
+}
+.profileContainer:hover {
+    cursor: pointer;
+    color:var(--color-1);
+}
+
+.profileContainer img{
+    width:10px;
+    margin-left:5px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 140px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 7px;
+    z-index: 1;
+    border-radius: 10px;;
+  }
+  
+  .dropdown:hover .dropdownContent {
+    display: block;
+  }
+  .dropdownContent p{
+      padding:10px;
+      border-radius: 10px;
+  }
+  .dropdownContent p:hover{
+      background-color: var(--color-1);
+      color:#fff;
+      cursor:pointer;
+  }
+

@@ -6,7 +6,7 @@ const HomePage = (props) => {
     return (
             <div>
                 <Header banners={props.banners} />
-                <Products products={props.products} banners={props.banners} setProduct={props.setProduct} />
+                <Products products={props.products} banners={props.banners} setProduct={props.setProduct} saleBanners={props.saleBanners} />
             </div>
     )
 }
