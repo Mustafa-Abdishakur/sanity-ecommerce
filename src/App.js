@@ -58,7 +58,7 @@ const App = () => {
        
       }
     });
-  }, user)
+  }, [user])
 
 
   if (products !== null && banners !== null && saleBanners != null) {

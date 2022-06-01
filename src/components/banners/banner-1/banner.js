@@ -4,6 +4,8 @@ import { urlFor } from '../../../client';
 
 const FirstBanner = (props) => {
     const [bannerNumber, setBannerNumber] = useState(0);
+    const [hightlightColor, setHighlightColor] = useState(1);
+
     const bannerUrl = urlFor(props.banners[bannerNumber].picture.asset._ref);
     //Banner carousel
     useInterval(() => {
@@ -12,13 +14,28 @@ const FirstBanner = (props) => {
         } else {
             setBannerNumber(bannerNumber + 1);
         }
-    }, 3000);
-
-    // const bannerUrl = urlFor(props.banners[1].picture.asset._ref);
+    }, 5000);
+    
+    //banner change
+    useEffect(() => {
+        switch (bannerNumber) {
+            case 0:
+                setHighlightColor(0);
+                break;
+            case 1:
+                setHighlightColor(1);
+            default:
+                break;
+        }
+    }, [bannerNumber])
     return (
         <div className={classes.mainBannersContainer}>
-            <div className={classes.bannerContainer} style={{ backgroundImage: `url(${bannerUrl})` }}>
-                {/* <img src={bannerUrl} alt="banner" /> */}
+            <div className={classes.bannerContainer}>
+                <img src={bannerUrl} alt="banner" />
+                <div className={classes.dots}>
+                    <button className={classes.btn_1} style={{ backgroundColor: `${hightlightColor === 0 ? '#f02d35' : 'rgb(206, 206, 206)'}` }} onClick={() => setBannerNumber(0)}></button>
+                    <button className={classes.btn_2} style={{ backgroundColor: `${hightlightColor === 1 ? '#f02d35' : 'rgb(206, 206, 206)'}` }} onClick={() => setBannerNumber(1)}></button>
+                </div>
             </div>
         </div>
     )
