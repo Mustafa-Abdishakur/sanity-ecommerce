@@ -16,8 +16,11 @@ const App = () => {
   const [saleBanners, setSaleBanners] = useState(null);
   const [product, setProduct] = useState({});
   const [user, setUser] = useState(null);
+  const [viewCart, setViewCart] = useState(false);
+  const [cartProducts, setCartProducts] = useState([]);
+  const [productQuantity, setProductQuantity] = useState(1);
+  const [displayNotification, setDisplayNotification] = useState(false);
 
-  
   //Get products data 
   useEffect(() => {
     client
@@ -40,7 +43,6 @@ const App = () => {
       .catch(console.error);
 
   }, []);
-// window.history.back();
   //check if autheticated
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
@@ -55,10 +57,40 @@ const App = () => {
         // console.log('user logged out', user);
         // No user is signed in 
         setUser(null);
-       
+
       }
     });
   }, [user])
+  //Add to cart
+  const cartHandler = (product, viewCart) => {
+    const productExist = cartProducts.map(el => {
+      if (el._id === product._id) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    if (!(productExist.includes(true))) {
+      const newProduct = {
+        ...product,
+        quantity: productQuantity
+      }
+      setCartProducts([...cartProducts, newProduct]);
+    }
+    setViewCart(viewCart);
+    setDisplayNotification(true);
+  }
+  //remove from cart
+  const removeProductHandler = (product) => {
+    let newCart;
+    if (cartProducts.length === 1) {
+      setCartProducts([]);
+      setViewCart(false);
+    } else {
+      newCart = cartProducts.filter(cartProduct => cartProduct !== product);
+      setCartProducts(newCart);
+    }
+  }
 
 
   if (products !== null && banners !== null && saleBanners != null) {
@@ -66,7 +98,9 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage products={products} banners={banners} setProduct={setProduct} saleBanners={saleBanners} />} />
-          <Route path="/product" element={<Product product={product} setProduct={setProduct} products={products} />} />
+
+          <Route path="/product" element={<Product product={product} setProduct={setProduct} products={products} cartHandler={cartHandler} />} />
+
           <Route path="/signIn" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
@@ -74,7 +108,7 @@ const App = () => {
   }
   return (
     <div className="App">
-      <AppContext.Provider value={ {user, setUser} } >
+      <AppContext.Provider value={{ user, product, viewCart, setViewCart, cartProducts, setCartProducts, removeProductHandler, productQuantity, setProductQuantity, displayNotification, setDisplayNotification }}>
         {components}
       </AppContext.Provider>
     </div>

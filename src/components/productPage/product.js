@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import classes from './product.module.css';
 import Navigation from '../navigation/navigation';
 import { urlFor } from '../../client';
@@ -8,11 +8,15 @@ import uniqid from 'uniqid';
 import Footer from '../footer/footer';
 import leftArrow from '../../img/left-arrow.png';
 import rightArrow from '../../img/right-arrow.png';
+import { AppContext } from '../../context';
 
 const Product = (props) => {
     const counter = useRef(null);
     const [imgUrl, setImgUrl] = useState(props.product.pictures[0].asset._ref);
-    const [quantity, setQuantity] = useState(1);
+    const productQuantity = useContext(AppContext).productQuantity;
+    const setProductQuantity = useContext(AppContext).setProductQuantity;
+    const setDisplayNotification = useContext(AppContext).setDisplayNotification;
+    
     const scrollBtnHandler = (val) => {
         if (val === '+') {
             counter.current.scrollLeft += 400;
@@ -25,20 +29,22 @@ const Product = (props) => {
     const productClickHandler = (product) => {
         setImgUrl(product.pictures[0].asset._ref);
         props.setProduct(product);
+        setProductQuantity(1);
+        window.location.hash = product._id;
     }
     const quantityHandler = (val) => {
         if(props.product.stock !== 0) {
             if (val === "+") {
-                if(quantity >= props.product.stock) {
+                if(productQuantity >= props.product.stock) {
                     return;
                 } else {
-                    setQuantity(quantity + 1);
+                    setProductQuantity(productQuantity + 1);
                 }
             } else if (val === "-") {
-                if (quantity === 1) {
+                if (productQuantity === 1) {
                     return;
                 } else {
-                    setQuantity(quantity - 1);
+                    setProductQuantity(productQuantity - 1);
     
                 }
     
@@ -84,14 +90,14 @@ const Product = (props) => {
                             <span>Quantity:</span>
                             <div className={classes.operatorContainer}>
                                 <button onClick={() => quantityHandler('+')}>+</button>
-                                <span>{quantity}</span>
+                                <span>{productQuantity}</span>
                                 <button onClick={() => quantityHandler('-')}>-</button>
                             </div>
                         </div>
                     </div>
                     <div className={classes.btnsContainer}>
-                        <button className={classes.cartBtn}>Add to Cart</button>
-                        <button className={classes.buyBtn}>Buy Now</button>
+                        <button className={classes.cartBtn} onClick={() => props.cartHandler(props.product, false)}>Add to Cart</button>
+                        <button className={classes.buyBtn} onClick={() => props.cartHandler(props.product, true)}>Buy Now</button>
                     </div>
                 </div>
 

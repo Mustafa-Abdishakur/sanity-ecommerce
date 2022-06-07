@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import Footer from '../footer/footer';
 import SaleBanner from '../banners/saleBanner/banner';
 
-const products = (props) => {
+const Products = (props) => {
+
     return (
         <main>
             <div className={classes.productsTitleContainer}>
@@ -39,7 +40,8 @@ const products = (props) => {
             <SaleBanner saleBanners={props.saleBanners} />
             <Footer />
         </main>
+        
     )
 }
 
-export default products;
+export default Products;

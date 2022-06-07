@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import classes from './banner.module.css';
 import { urlFor } from '../../../client';
+import { AppContext } from '../../../context';
 
 const FirstBanner = (props) => {
     const [bannerNumber, setBannerNumber] = useState(0);
     const [hightlightColor, setHighlightColor] = useState(0);
+    
+    const setDisplayNotification = useContext(AppContext).setDisplayNotification;
 
     const bannerUrl = urlFor(props.banners[bannerNumber].picture.asset._ref);
     //Banner carousel
@@ -15,7 +18,8 @@ const FirstBanner = (props) => {
             setBannerNumber(bannerNumber + 1);
         }
     }, 5000);
-    
+
+
     //banner dots
     useEffect(() => {
         switch (bannerNumber) {
@@ -29,7 +33,7 @@ const FirstBanner = (props) => {
                 setHighlightColor(0);
                 break;
         }
-    }, [bannerNumber])
+    }, [bannerNumber]);
     return (
         <div className={classes.mainBannersContainer}>
             <div className={classes.bannerContainer}>

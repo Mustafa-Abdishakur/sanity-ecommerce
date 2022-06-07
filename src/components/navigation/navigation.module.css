@@ -8,6 +8,7 @@ nav{
     padding:5px 20px;
     align-items: center;
     padding-top:20px;
+    position:relative;
 }
 .rightBtnsContainer {
     display:flex;
@@ -16,12 +17,13 @@ nav{
 }
 .shoppingCartContainer img {
     width:25px;
+    margin-left:10px;
 }
 .shoppingAmountContainer {
     width:15px;
     height:15px;
     border-radius:50%;
-    font-size: 12px;
+    font-size: 11px;
     text-align: center;
     background-color: var(--color-1);
     color:#fff;
@@ -120,7 +122,42 @@ nav{
       color:#fff;
       cursor:pointer;
   }
-
+.notificationContainer{
+    position: absolute;
+    left:0;
+    right:0;
+    top:-40px;
+    margin:auto;
+    width:230px;
+    text-align: center;
+    border-radius: 20px;
+    padding:5px 9px;
+    border:1px solid lightgrey;
+    box-shadow: 0 0 5px lightgrey;
+    animation: notification 3s;
+    z-index: 2;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.notificationContainer img {
+    width:20px;
+}
+@keyframes notification {
+    from {
+        top:-40px;
+    }
+    50% {
+        top:20px;
+        animation-play-state: paused;
+    }
+    70%{
+        animation-play-state: running;
+    }
+    to {
+        top:-40px;
+    }
+}
   @media(max-width: 400px) {
     .profileContainer, .dropdownContent {
         font-size: 13px;

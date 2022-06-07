@@ -1,10 +1,13 @@
-import React, {useContext} from 'react';
+import React, { useContext, useEffect } from 'react';
 import classes from './navigation.module.css';
 import shoppingbag from '../../img/shopping bag.png';
 import { Link } from 'react-router-dom';
 import downArrow from '../../img/down-arrow.png';
 import { auth } from '../../firebase';
 import { AppContext } from '../../context';
+import ShoppingCart from '../shoppingCart/shoppingCart';
+import checkMarkImg from '../../img/checkmark.png';
+import { useLocation } from 'react-router-dom';
 
 const signOut = () => {
     auth.signOut().then(() => {
@@ -15,11 +18,21 @@ const signOut = () => {
 }
 
 
-
 const Navigation = () => {
     let component;
-
     const user = useContext(AppContext).user;
+    const viewCart = useContext(AppContext).viewCart;
+    const setViewCart = useContext(AppContext).setViewCart;
+    const cartProducts = useContext(AppContext).cartProducts;
+    const displayNotification = useContext(AppContext).displayNotification;
+    const setDisplayNotification = useContext(AppContext).setDisplayNotification;
+
+    const ResetProductNotification = () => {
+        const location = useLocation();
+        useEffect(() => {
+            setDisplayNotification(false);
+        }, [location])
+    }
 
     if (user) {
         component = (
@@ -41,6 +54,7 @@ const Navigation = () => {
             </Link>
         )
     }
+    ResetProductNotification();
     return (
         <nav>
             <div className={classes.companyName}>
@@ -52,13 +66,22 @@ const Navigation = () => {
             <div className={classes.rightBtnsContainer}>
                 {component}
                 <div className={classes.shoppingCartContainer}>
-                    <img className={classes.shoppingCartImage} alt='shopping cart' src={shoppingbag} />
+                    <img className={classes.shoppingCartImage} alt='shopping cart' src={shoppingbag} onClick={() => setViewCart(true)} />
                     <div className={classes.shoppingAmountContainer}>
-                        <span>1</span>
+                        <span>{cartProducts.length}</span>
                     </div>
                 </div>
-
             </div>
+
+            {
+                displayNotification ?
+                    <div className={classes.notificationContainer}>
+                        <img src={checkMarkImg} alt='checkmark' />
+                        <p>Product was added to cart</p>
+                    </div> : null
+            }
+            {viewCart ? <ShoppingCart /> : null}
+
         </nav>
     )
 }
