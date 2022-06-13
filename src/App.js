@@ -11,7 +11,7 @@ import Loading from './components/loading/loading';
 import Checkout from './components/checkout/checkout';
 /**
  * future features:
- * tax, address
+ * tax, address, redux
  */
 const App = () => {
   let components;
