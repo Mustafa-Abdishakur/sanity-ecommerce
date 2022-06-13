@@ -9,7 +9,10 @@ import { auth } from './firebase';
 import { AppContext } from './context';
 import Loading from './components/loading/loading';
 import Checkout from './components/checkout/checkout';
-
+/**
+ * future features:
+ * tax, address
+ */
 const App = () => {
   let components;
   const [products, setProducts] = useState(null);
