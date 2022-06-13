@@ -8,6 +8,7 @@ import SignIn from './components/signIn/signIn';
 import { auth } from './firebase';
 import { AppContext } from './context';
 import Loading from './components/loading/loading';
+import Checkout from './components/checkout/checkout';
 
 const App = () => {
   //other features: stock avaliablity, banner carousel
@@ -21,7 +22,6 @@ const App = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [productQuantity, setProductQuantity] = useState(1);
   const [displayNotification, setDisplayNotification] = useState(false);
-
   //Get products data 
   useEffect(() => {
     client
@@ -48,10 +48,11 @@ const App = () => {
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
       if (user) {
+
         // User is signed in.
         // console.log('user logged in', user);
         setUser(user); // "user" will be used for authentication
-        if (window.location.pathname !== '/') {
+        if (window.location.pathname === '/signIn') {
           window.location = '/';
         };
       } else {
@@ -64,6 +65,7 @@ const App = () => {
   }, [user])
   //Add to cart
   const cartHandler = (product, viewCart) => {
+
     const productExist = cartProducts.map(el => {
       if (el._id === product._id) {
         return true;
@@ -80,6 +82,7 @@ const App = () => {
     }
     setViewCart(viewCart);
     setDisplayNotification(true);
+
   }
   //remove from cart
   const removeProductHandler = (product) => {
@@ -102,6 +105,7 @@ const App = () => {
           <Route path="/product/" element={<Product product={product} setProduct={setProduct} products={products} cartHandler={cartHandler} />} />
 
           <Route path="/signIn" element={<SignIn />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </BrowserRouter>
 
@@ -114,7 +118,6 @@ const App = () => {
           {components}
         </AppContext.Provider>
       </Suspense>
-
     </div>
 
   );

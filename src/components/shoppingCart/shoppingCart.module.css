@@ -99,6 +99,7 @@
   }
 .productsContainer::-webkit-scrollbar-track {
     background: #eeeeee;
+    display: none;
 }
 .productsContainer::-webkit-scrollbar-thumb {
     background: rgb(206, 205, 205);
@@ -112,6 +113,8 @@
     display:flex;
     margin:5px;
     transition: all 0.3s;
+    border-radius: 10px;
+    padding:3px 5px;
 }
 .productContainer:hover {
     background-color: rgb(240, 240, 240);

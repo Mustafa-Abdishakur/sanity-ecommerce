@@ -32,6 +32,11 @@ export default {
                 hotspot: true
             }
 
+        },
+        {
+            name: 'priceId',
+            type: 'string',
+            title: 'Stripe price ID'
         }
     ]
 }

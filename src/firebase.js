@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 let firebaseui = require('firebaseui');
 
@@ -42,6 +43,8 @@ let uiConfig = {
 //initialize firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 // Initialize Firebase Authentication
 const auth = getAuth(app);
 
@@ -54,4 +57,4 @@ if (ui.isPendingRedirect()) {
 
 
 
-export { uiConfig, auth };
+export { uiConfig, auth, db };

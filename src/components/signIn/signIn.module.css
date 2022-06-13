@@ -22,6 +22,10 @@
     font-weight:bold;
     font-size:15px;
 }
-.guestBtn:hover {
+.signIn button {
+    transition:all 0.5s;
+}
+.signIn button:hover {
     cursor:pointer;
+    transform: scale(1.1);
 }

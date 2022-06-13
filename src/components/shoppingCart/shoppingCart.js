@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import classes from './shoppingCart.module.css';
 import leftArrow from '../../img/left-arrow.png';
 import shoppingCartImg from '../../img/shopping bag.png';
@@ -6,14 +6,49 @@ import { AppContext } from '../../context';
 import closeImg from '../../img/close.png';
 import { urlFor } from '../../client';
 import uniqid from 'uniqid';
-
+import { db } from '../../firebase';
+import { collection, addDoc, doc, onSnapshot } from "firebase/firestore";
 
 const ShoppingCart = () => {
+
     const [total, setTotal] = useState(0);
     const setViewCart = useContext(AppContext).setViewCart;
     const cartProducts = useContext(AppContext).cartProducts;
     const removeProductHandler = useContext(AppContext).removeProductHandler;
+    const user = useContext(AppContext).user;
+    const form = useRef(null);
 
+    const PaymentClickHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const lineItems = cartProducts.map(product => {
+                return ({
+                    price: product.priceId,
+                    quantity: product.quantity
+                })
+            })
+            const docRef = await addDoc(collection(db, "customers", user.uid, "checkout_sessions"), {
+                mode: "payment",
+                line_items: lineItems,
+                success_url:"http://localhost:3000/checkout",
+                cancel_url: window.location.origin,
+            });
+            onSnapshot(doc(db, "customers", user.uid, "checkout_sessions", docRef.id), (snap) => {
+                const { error, url } = snap.data();
+                if (error) {
+                    // Show an error to your customer and then inspect your function logs.
+                    alert(`An error occured: ${error.message}`);
+                    document.querySelectorAll('button').forEach((b) => (b.disabled = false));
+                }
+                if (url) {
+                    window.location.assign(url);
+                }
+            });
+        } catch (e) {
+            console.error("Error adding document: " + e);
+        }
+
+    }
     let component;
     if (cartProducts.length === 0) {
         component = (
@@ -27,7 +62,7 @@ const ShoppingCart = () => {
         )
     } else {
         component = (
-            <div className={classes.productsContainer}>
+            <form className={classes.productsContainer} onSubmit={PaymentClickHandler} ref={form}>
                 {
                     cartProducts.map(product => (
                         <div className={classes.productContainer} key={uniqid()}>
@@ -35,7 +70,7 @@ const ShoppingCart = () => {
                             <div className={classes.productInfoContainer}>
                                 <div className={classes.productInfo}>
                                     <p>{product.name}</p>
-                                    <p>{product.price}Dhs</p>
+                                    <p>{product.price} AED</p>
                                 </div>
                                 <div className={classes.productAmount}>
                                     <div className={classes.quantityContainer}>
@@ -50,11 +85,11 @@ const ShoppingCart = () => {
                 <div className={classes.paymentContainer}>
                     <div className={classes.paymentInfo}>
                         <p>Subtotal:</p>
-                        <p>{total}Dhs</p>
+                        <p>{total} AED</p>
                     </div>
-                    <button className={classes.paymentBtn}>Continue To Payment</button>
+                    <button type='submit' className={classes.paymentBtn} >Continue To Payment</button>
                 </div>
-            </div>
+            </form>
         )
     }
     useEffect(() => {
