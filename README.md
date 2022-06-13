@@ -1,5 +1,6 @@
 # Ecommerce webiste
 **Ecommerce website demo using sanity.io and stripe.**
+
 *Technologies:*
 - HTML
 - CSS3
