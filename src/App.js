@@ -11,7 +11,6 @@ import Loading from './components/loading/loading';
 import Checkout from './components/checkout/checkout';
 
 const App = () => {
-  //other features: stock avaliablity, banner carousel
   let components;
   const [products, setProducts] = useState(null);
   const [banners, setBanners] = useState(null);
@@ -50,13 +49,11 @@ const App = () => {
       if (user) {
 
         // User is signed in.
-        // console.log('user logged in', user);
         setUser(user); // "user" will be used for authentication
         if (window.location.pathname === '/signIn') {
           window.location = '/';
         };
       } else {
-        // console.log('user logged out', user);
         // No user is signed in 
         setUser(null);
 

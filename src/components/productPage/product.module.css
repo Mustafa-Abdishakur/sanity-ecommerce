@@ -13,7 +13,7 @@
 
 .mainImageContainer {
     width: 400px;
-    background-color: var(--color-2);
+    background-color: #f1f1f1;
     border-radius: 13px;
     transition: all 0.5s;
 }
@@ -47,7 +47,7 @@
     height: 100%;
     margin-right: 10px;
     border-radius: 13px;
-    background-color: var(--color-2);
+    background-color: #f1f1f1;
 
 }
 
@@ -184,7 +184,7 @@
 
 .product img {
     width: 220px;
-    background-color: var(--color-2);
+    background-color: #f1f1f1;
     border-radius: 20px;
 }
 
