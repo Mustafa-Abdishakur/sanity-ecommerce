@@ -17,7 +17,7 @@ const ShoppingCart = () => {
     const removeProductHandler = useContext(AppContext).removeProductHandler;
     const user = useContext(AppContext).user;
     const form = useRef(null);
-
+    console.log(window.location)
     const PaymentClickHandler = async (e) => {
         e.preventDefault();
         try {
@@ -30,7 +30,7 @@ const ShoppingCart = () => {
             const docRef = await addDoc(collection(db, "customers", user.uid, "checkout_sessions"), {
                 mode: "payment",
                 line_items: lineItems,
-                success_url:"http://localhost:3000/checkout",
+                success_url:`${window.location.origin}/checkout`,
                 cancel_url: window.location.origin,
             });
             onSnapshot(doc(db, "customers", user.uid, "checkout_sessions", docRef.id), (snap) => {
