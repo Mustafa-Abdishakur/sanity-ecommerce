@@ -29,6 +29,7 @@ const Product = (props) => {
     const cartHandler = (product, val) => {
         if (user) {
             // user is signed in so add to cart 
+            window.scrollTo(0, 0);
             props.cartHandler(product, val);
         } else {
             navigate('/signIn', { replace: true });

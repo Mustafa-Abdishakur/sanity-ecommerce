@@ -8,18 +8,23 @@ import { urlFor } from '../../client';
 import uniqid from 'uniqid';
 import { db } from '../../firebase';
 import { collection, addDoc, doc, onSnapshot } from "firebase/firestore";
+import loadingImg from '../../img/loading.png';
 
 const ShoppingCart = () => {
 
     const [total, setTotal] = useState(0);
+    const [paymentClick, setPaymentClick] = useState(false);
+
     const setViewCart = useContext(AppContext).setViewCart;
     const cartProducts = useContext(AppContext).cartProducts;
     const removeProductHandler = useContext(AppContext).removeProductHandler;
     const user = useContext(AppContext).user;
     const form = useRef(null);
-    console.log(window.location)
+
     const PaymentClickHandler = async (e) => {
+        setPaymentClick(true);
         e.preventDefault();
+        alert(`Use the card number 4242 4242 4242 4242 during checkout and fill the other details randomly.`);
         try {
             const lineItems = cartProducts.map(product => {
                 return ({
@@ -30,7 +35,7 @@ const ShoppingCart = () => {
             const docRef = await addDoc(collection(db, "customers", user.uid, "checkout_sessions"), {
                 mode: "payment",
                 line_items: lineItems,
-                success_url:`${window.location.origin}/checkout`,
+                success_url: `${window.location.origin}/checkout`,
                 cancel_url: window.location.origin,
             });
             onSnapshot(doc(db, "customers", user.uid, "checkout_sessions", docRef.id), (snap) => {
@@ -87,7 +92,13 @@ const ShoppingCart = () => {
                         <p>Subtotal:</p>
                         <p>{total} AED</p>
                     </div>
-                    <button type='submit' className={classes.paymentBtn} >Continue To Payment</button>
+                    <div className={classes.btnContainer}>
+                        <img src={loadingImg} alt='loading' style={{display: paymentClick ? 'block' : 'none'}} />
+                        <button 
+                        type='submit' 
+                        className={classes.paymentBtn} 
+                        style={{backgroundColor: paymentClick ? 'lightgrey' : null}}>Continue To Payment</button>
+                    </div>
                 </div>
             </form>
         )
