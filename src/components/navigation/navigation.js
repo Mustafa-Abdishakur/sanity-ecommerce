@@ -62,7 +62,7 @@ const Navigation = () => {
                     <h3>KKP Store</h3>
                 </Link>
             </div>
-            {/** sign in, shopping, favorites */}
+    
             <div className={classes.rightBtnsContainer}>
                 {component}
                 <div className={classes.shoppingCartContainer}>

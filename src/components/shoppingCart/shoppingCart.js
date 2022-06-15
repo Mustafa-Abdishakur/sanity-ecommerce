@@ -35,6 +35,17 @@ const ShoppingCart = () => {
             const docRef = await addDoc(collection(db, "customers", user.uid, "checkout_sessions"), {
                 mode: "payment",
                 line_items: lineItems,
+                automatic_tax: {
+                    enabled: true,
+                },
+                // customer:'cus_Lru9iTtI2lCY88',
+                customer_update: {
+                    shipping: 'auto',
+                },
+                shipping_address_collection: {
+                    allowed_countries: ['AE'],
+                },
+
                 success_url: `${window.location.origin}/checkout`,
                 cancel_url: window.location.origin,
             });
@@ -93,11 +104,11 @@ const ShoppingCart = () => {
                         <p>{total} AED</p>
                     </div>
                     <div className={classes.btnContainer}>
-                        <img src={loadingImg} alt='loading' style={{display: paymentClick ? 'block' : 'none'}} />
-                        <button 
-                        type='submit' 
-                        className={classes.paymentBtn} 
-                        style={{backgroundColor: paymentClick ? 'lightgrey' : null}}>Continue To Payment</button>
+                        <img src={loadingImg} alt='loading' style={{ display: paymentClick ? 'block' : 'none' }} />
+                        <button
+                            type='submit'
+                            className={classes.paymentBtn}
+                            style={{ backgroundColor: paymentClick ? 'lightgrey' : null }}>Continue To Payment</button>
                     </div>
                 </div>
             </form>
