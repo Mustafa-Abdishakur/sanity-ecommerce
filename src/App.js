@@ -10,8 +10,8 @@ import { AppContext } from './context';
 import Loading from './components/loading/loading';
 import Checkout from './components/checkout/checkout';
 /**
- * future features:
- * redux, download/send bill after payment
+ * future features/fixes:
+ * reload page bug, redux, download/send bill after payment
  */
 const App = () => {
   let components;
